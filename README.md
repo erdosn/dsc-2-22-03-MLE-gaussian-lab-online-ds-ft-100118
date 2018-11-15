@@ -33,7 +33,7 @@ import numpy as np
 
 
 ```python
-sample = None
+sample = np.random.normal(loc=0, scale=1, size=200)
 ```
 
 ### Distribution fitting through MLE
@@ -42,7 +42,7 @@ sample = None
 
 
 ```python
-param = None
+param = norm.fit(sample)
 
 #param[0], param[1]
 # (0.08241224761452863, 1.002987490235812)
@@ -55,20 +55,31 @@ param = None
 x = np.linspace(-5,5,100)
 
 # Generate the pdf from fitted parameters (fitted distribution)
-fitted_pdf = None
+fitted_pdf = norm.pdf(x, loc=param[0], scale=param[1])
 # Generate the pdf without fitting (normal distribution non fitted)
-normal_pdf = None
+normal_pdf = norm.pdf(x)
 ```
 
 ### Visualize both PDFs 
 
 
 ```python
-# Your code here 
+from pylab import rcParams
+rcParams['figure.figsize'] = 15, 8
+plt.plot(x,fitted_pdf,"red",label="Fitted MLE dist",linestyle="dashed", linewidth=2)
+plt.plot(x,normal_pdf,"blue",label="Normal dist", linewidth=2)
+plt.hist(sample,normed=1,color="cyan",alpha=.3, label='Random Sample')
+plt.title("Normal distribution MLE fitting")
+plt.legend()
+plt.show()
 ```
 
+    /anaconda3/lib/python3.6/site-packages/matplotlib/axes/_axes.py:6462: UserWarning: The 'normed' kwarg is deprecated, and has been replaced by the 'density' kwarg.
+      warnings.warn("The 'normed' kwarg is deprecated, and has been "
 
-![png](index_files/index_11_0.png)
+
+
+![png](index_files/index_11_1.png)
 
 
 
